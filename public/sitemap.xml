@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 
+    STEA SITE MAP 
+    Generated: 2026-05-01
+    Base Domain: https://stea.africa
+  -->
+
+  <!-- ── Main Core Pages ────────────────── -->
+  <url>
+    <loc>https://stea.africa/</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/about</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/contact</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/faq</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- ── Marketplace & Shop ────────────────── -->
+  <url>
+    <loc>https://stea.africa/duka</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/chaba</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/huduma</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ── Learning & Skills ────────────────── -->
+  <url>
+    <loc>https://stea.africa/courses</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/digital-tools</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/prompts</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/ai</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/gigs</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/websites</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ── Educational Hub ────────────────── -->
+  <url>
+    <loc>https://stea.africa/exams</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/exams/results</loc>
+    <lastmod>2026-05-01</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url><loc>https://stea.africa/necta/csee/2024</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://stea.africa/necta/acsee/2024</loc><changefreq>weekly</changefreq><priority>0.85</priority></url>
+  <url><loc>https://stea.africa/results/top-schools</loc><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://stea.africa/results/statistics</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
+  <url><loc>https://stea.africa/results/region/dar-es-salaam</loc><changefreq>weekly</changefreq><priority>0.75</priority></url>
+  <url>
+    <loc>https://stea.africa/exams/past-papers</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/exams/notes</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/university-guide</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/money-guide</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/exams/scholarships</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/exams/abroad</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/exams/assistant</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/creator</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- ── Dynamic Content Samples ────────────────── -->
+  
+  <!-- Courses Slugs -->
+  <url>
+    <loc>https://stea.africa/courses/social-media-management</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/courses/computer-repair-course</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Digital Tools Slugs -->
+  <url>
+    <loc>https://stea.africa/tools/hostinger-hosting</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/tools/canva-pro-tz</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Prompt Lab Slugs -->
+  <url>
+    <loc>https://stea.africa/prompts/content-marketing-expert</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.6</priority>
+  </url>
+
+  <!-- ── News & Tech ────────────────── -->
+  <url>
+    <loc>https://stea.africa/tech</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/tech/tips-resources</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/exams/updates</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ── Service & Utilities ────────────────── -->
+  <url>
+    <loc>https://stea.africa/vpn</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/advertise</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/privacy</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://stea.africa/terms</loc>
+    <lastmod>2026-05-01</lastmod>
+    <priority>0.3</priority>
+  </url>
+
+</urlset>

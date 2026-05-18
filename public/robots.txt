@@ -1,0 +1,12 @@
+# STEA Robots.txt
+# Optimized for Google, Bing, and DuckDuckGo
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /checkout/
+Disallow: /receipts/
+Disallow: /api/
+
+# Specify sitemap location
+Sitemap: https://stea.africa/sitemap.xml

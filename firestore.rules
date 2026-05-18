@@ -1,0 +1,237 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── HELPERS ──────────────────────────────────────────
+    function isSignedIn() { return request.auth != null; }
+    
+    function isEmailVerified() {
+      return isSignedIn() && request.auth.token.email_verified == true;
+    }
+
+    function isSuperAdmin() {
+      return isSignedIn() && (
+        request.auth.token.get('email', '').toLowerCase() in [
+          "isayamasika100@gmail.com", 
+          "kukumlangoni@gmail.com", 
+          "swahilitecheliteacademy@gmail.com"
+        ] || 
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.get('role', 'user') in ['admin', 'super_admin']
+      );
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function isRole(roles) {
+      return isSignedIn() && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role in roles;
+    }
+
+    function isEditor() {
+      return isSuperAdmin() || isRole(['admin', 'editor', 'manager']);
+    }
+
+    function keepsProtectedUserFields() {
+      return !(
+        request.resource.data.diff(resource.data).affectedKeys().hasAny([
+          'role', 'roles', 'admin', 'isAdmin', 'permissions', 'status'
+        ])
+      );
+    }
+
+    function isCeo(uid) {
+      return isSignedIn() &&
+        request.auth.uid == uid &&
+        request.auth.token.get('email', '').toLowerCase() in [
+          "isayamasika100@gmail.com",
+          "kukumlargoni@gmail.com"
+        ];
+    }
+
+    // ── PUBLIC COLLECTIONS ───────────────────────────────
+    match /site_settings/{settingId} { allow read: if true; }
+    match /faqs/{faqId} { allow read: if true; }
+    match /chaba_products/{productId} { allow read: if true; }
+    match /chaba_payment_methods/{methodId} { allow read: if true; }
+    match /subscription_plans/{planId} { allow read: if true; }
+    match /products/{productId} { 
+      allow read: if true;
+      allow create: if isSuperAdmin() || isRole(['admin', 'manager', 'seller']);
+      allow update, delete: if isSuperAdmin() || isRole(['admin', 'manager']) || (isRole(['seller']) && resource.data.ownerId == request.auth.uid);
+    }
+
+    // ── RULES ─────────────────────────────────────────────
+
+    // Users: self profile edits are allowed, but role/admin fields are protected.
+    match /users/{userId} {
+      allow read: if isSignedIn() && request.auth.uid == userId;
+      allow create: if isSignedIn() && request.auth.uid == userId && (
+        isSuperAdmin() ||
+        !request.resource.data.keys().hasAny(['role', 'roles', 'admin', 'isAdmin', 'permissions', 'status']) ||
+        request.resource.data.get('role', 'user') == 'user'
+      );
+      allow update: if isSignedIn() && request.auth.uid == userId && (
+        isSuperAdmin() || keepsProtectedUserFields()
+      );
+      allow delete: if isSuperAdmin();
+      allow read, write, list: if isSuperAdmin();
+    }
+
+    match /notificationTokens/{tokenId} {
+      allow get, list: if isSuperAdmin();
+      allow create, update: if request.resource.data.keys().hasOnly([
+          'token', 'userId', 'userEmail', 'createdAt', 'updatedAt', 'platform', 'userAgent', 'topics', 'status'
+        ])
+        && request.resource.data.token == tokenId
+        && request.resource.data.status == 'active'
+        && request.resource.data.topics == ['general']
+        && (
+          (request.resource.data.userId == null && request.resource.data.userEmail == null) ||
+          (
+            isSignedIn() &&
+            request.resource.data.userId == request.auth.uid &&
+            request.resource.data.userEmail == request.auth.token.email
+          )
+        );
+      allow delete: if isSuperAdmin();
+    }
+
+    match /notifications/{notificationId} {
+      allow read, write: if isSuperAdmin();
+    }
+
+    // Private CEO workspace. Data must stay under ceoWorkspace/{uid}/...
+    match /ceoWorkspace/{uid}/{document=**} {
+      allow read, write: if isCeo(uid);
+    }
+
+    // Orders
+    match /orders/{orderId} {
+      allow create: if true;
+      allow read, list: if isSignedIn() && (
+        isSuperAdmin() || 
+        resource.data.userId == request.auth.uid || 
+        resource.data.sellerId == request.auth.uid
+      );
+      allow update: if isSignedIn() && (
+        isSuperAdmin() || 
+        resource.data.sellerId == request.auth.uid
+      );
+    }
+    
+    match /chaba_orders/{orderId} {
+      allow create: if true;
+      allow read, write: if isSuperAdmin();
+    }
+
+    // Global catch-all
+    match /{document=**} {
+      allow read, write: if isSuperAdmin();
+    }
+
+    // Service Requests
+    match /service_requests/{reqId} {
+      allow create: if true;
+      allow read, write: if isSuperAdmin();
+    }
+
+    // Chaba Marketplace
+    match /chaba_products/{productId} {
+      allow write: if isSuperAdmin();
+    }
+    match /chaba_orders/{orderId} {
+      allow create: if true;
+      allow read: if isSuperAdmin();
+      allow write: if isSuperAdmin();
+    }
+    match /chaba_payment_methods/{methodId} {
+      allow write: if isSuperAdmin();
+    }
+
+    match /subscription_plans/{planId} {
+      allow write: if isSuperAdmin();
+    }
+
+    // Digital tools: support existing snake_case and requested camelCase collection names.
+    match /digital_tools/{toolId} {
+      allow read: if true;
+      allow write: if isSuperAdmin();
+    }
+
+    match /digitalTools/{toolId} {
+      allow read: if true;
+      allow write: if isSuperAdmin();
+    }
+
+    match /toolPlans/{planId} {
+      allow read: if true;
+      allow write: if isSuperAdmin();
+    }
+
+    // Public payment methods are readable only when active; admins manage all.
+    match /paymentMethods/{methodId} {
+      allow get, list: if isSuperAdmin() || resource.data.isActive == true;
+      allow create, update, delete: if isSuperAdmin();
+    }
+
+    // New subscription workflow. Users can create/read their own pending request.
+    // Only admins can approve, reject, cancel, expire, renew, or edit records.
+    match /toolSubscriptions/{subscriptionId} {
+      allow create: if request.resource.data.keys().hasAll([
+          'toolId', 'toolTitle', 'planId', 'planName', 'fullName', 'email',
+          'whatsapp', 'country', 'currency', 'amount', 'paymentMethod',
+          'paymentReference', 'status', 'source', 'createdAt', 'updatedAt'
+        ])
+        && request.resource.data.status == "pending"
+        && request.resource.data.source == "digital_tools"
+        && request.resource.data.get('approvedBy', '') == ''
+        && request.resource.data.get('approvedAt', null) == null
+        && (
+          (isSignedIn() && request.resource.data.get('userId', '') == request.auth.uid) ||
+          request.resource.data.get('userId', null) == null ||
+          request.resource.data.get('userId', '') == ''
+        );
+      allow get: if isSuperAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow list: if isSuperAdmin();
+      allow update, delete: if isSuperAdmin();
+    }
+
+    match /subscriptionAnalytics/{analyticsId} {
+      allow read, write: if isSuperAdmin();
+    }
+
+    // Legacy digital payment records remain readable/manageable by admins.
+    match /digital_tool_orders/{orderId} {
+      allow create: if isSignedIn()
+        && request.resource.data.get('userId', request.auth.uid) == request.auth.uid
+        && request.resource.data.get('status', 'pending') == 'pending';
+      allow get: if isSuperAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow list, update, delete: if isSuperAdmin();
+    }
+
+    match /user_subscriptions/{subscriptionId} {
+      allow get: if isSuperAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow list, create, update, delete: if isSuperAdmin();
+    }
+
+    match /digital_orders/{orderId} {
+      allow create: if isSignedIn();
+      allow get: if isSuperAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
+      allow list: if isSuperAdmin() || isSignedIn();
+      allow write: if isSuperAdmin() || (isSignedIn() && resource.data.userId == request.auth.uid);
+    }
+
+    // Legacy / Other Collections
+    match /{collectionName}/{docId} {
+      allow read: if collectionName in [
+        'tips', 'updates', 'news', 'websites', 'prompts', 'deals', 'courses', 
+        'study_resources', 'posts', 'ai', 'gigs', 'sponsored_ads', 'shop', 'content',
+        'deliveries', 'marketplace', 'exams', 'payments', 'necta', 'message_templates', 'subscriptions', 'resources', 'subscription_plans', 'content', 'ads', 'tech_tips',
+        'website_solutions', 'prompt_lab', 'video_courses', 'learning_resources', 'marketplace_products', 'tanzania_products', 'promptLab', 'websiteSolutions'
+      ];
+      allow write: if isSuperAdmin() || isRole(['admin', 'editor', 'manager', 'creator']);
+    }
+
+  }
+}

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+
+    <!-- Primary Icon -->
+    <link rel="shortcut icon" href="/favicon.ico?v=2026-stea" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=2026-stea" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=2026-stea" />
+    <link rel="apple-touch-icon" href="/android-chrome-192x192.png" />
+    <link rel="manifest" href="/site.webmanifest?v=2026-stea" />
+
+    <!-- PWA -->
+    <meta name="msapplication-TileImage" content="/android-chrome-192x192.png?v=2026-stea" />
+
+    <!-- Theme / Status Bar -->
+    <meta name="theme-color" content="#F5A623" />
+    <meta name="msapplication-TileColor" content="#F5A623" />
+    <meta name="msapplication-config" content="none" />
+
+    <!-- iOS PWA: full-screen standalone mode -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="STEA" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <!-- Android/General -->
+    <meta name="application-name" content="STEA" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="HandheldFriendly" content="True" />
+
+    <!-- Canonical -->
+    <link rel="canonical" href="https://stea.africa/">
+
+    <!-- SEO -->
+    <title>STEA — AI Tools, Learning & Opportunities for African Students</title>
+    <meta name="description" content="STEA helps African students and creators check NECTA results, learn AI skills, discover digital tools, browse marketplace products, and find opportunities." />
+    <meta name="keywords" content="STEA Africa, NECTA results Tanzania, AI tools for students, African creators, digital skills, Tanzania marketplace" />
+    <meta name="author" content="STEA Africa" />
+    <meta name="robots" content="index,follow" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="STEA — AI Tools, Learning & Opportunities for African Students" />
+    <meta property="og:description" content="Check results, learn AI skills, discover tools, and browse marketplace products on STEA." />
+    <meta property="og:image" content="https://stea.africa/android-chrome-512x512.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="STEA Africa" />
+    <meta property="og:url" content="https://stea.africa" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="STEA — AI Tools, Learning & Opportunities" />
+    <meta name="twitter:description" content="Results, AI skills, marketplace and opportunities for African students and creators." />
+    <meta name="twitter:image" content="https://stea.africa/android-chrome-512x512.png" />
+    <meta name="twitter:site" content="@steaafrica" />
+
+    <!-- Splash screen: iOS uses background_color + icon automatically. 
+         The background_color in manifest (#05060a) sets the splash background.
+         This meta ensures the status bar matches during splash -->
+    <style>
+      /* Instant dark background during load = no white flash */
+      html { background: #05060a; }
+      body { background: #05060a; margin: 0; }
+      #root { background: #05060a; min-height: 100vh; }
+      /* App loading spinner (shows before React hydrates) */
+      #app-loader {
+        position: fixed; inset: 0;
+        background:
+          radial-gradient(circle at 50% 38%, rgba(245,166,35,.13), transparent 28%),
+          radial-gradient(circle at 20% 18%, rgba(255,209,124,.08), transparent 30%),
+          radial-gradient(circle at 78% 76%, rgba(120,86,28,.16), transparent 34%),
+          linear-gradient(145deg, #141414 0%, #090a0c 45%, #010101 100%);
+        display: flex; flex-direction: column; align-items: center; justify-content: center;
+        z-index: 99999; transition: opacity .45s ease;
+        overflow: hidden;
+      }
+      #app-loader::before {
+        content: ""; position: absolute; inset: 0;
+        background:
+          linear-gradient(120deg, transparent 0%, rgba(255,255,255,.035) 42%, transparent 64%),
+          repeating-linear-gradient(90deg, rgba(255,255,255,.018) 0 1px, transparent 1px 90px);
+        opacity: .45; pointer-events: none;
+      }
+      #app-loader.fade { opacity: 0; pointer-events: none; }
+      .loader-icon {
+        width: clamp(88px, 22vw, 118px); height: clamp(88px, 22vw, 118px); margin-bottom: 22px;
+        display: flex; align-items: center; justify-content: center;
+        position: relative; border-radius: 28px;
+        background: linear-gradient(145deg, rgba(255,255,255,.11), rgba(255,255,255,.035));
+        border: 1px solid rgba(245,166,35,.24);
+        box-shadow: 0 24px 70px rgba(0,0,0,.58), 0 0 52px rgba(245,166,35,.22);
+        animation: logoBreathe 2.4s ease-in-out infinite;
+      }
+      .loader-icon::before {
+        content: ""; position: absolute; inset: -34px; z-index: -1;
+        border-radius: 50%; background: radial-gradient(circle, rgba(245,166,35,.3), transparent 64%);
+        filter: blur(8px); opacity: .8;
+      }
+      .loader-icon img { width: 76%; height: 76%; object-fit: contain; mix-blend-mode: screen; }
+      .loader-wordmark {
+        position: relative; font-family: sans-serif; font-size: clamp(28px, 8vw, 40px); font-weight: 900;
+        color: #ffffff; letter-spacing: 0.12em; margin-bottom: 9px;
+        text-shadow: 0 0 28px rgba(245,166,35,.18);
+      }
+      .loader-slogan {
+        position: relative; font-family: sans-serif; font-size: clamp(11px, 3vw, 13px); font-weight: 700;
+        color: #FFD17C; letter-spacing: 0.18em; margin-bottom: 26px;
+        text-transform: uppercase;
+      }
+      .loader-dots { position: relative; display: flex; gap: 10px; align-items: center; }
+      .loader-dots span {
+        width: 7px; height: 7px; border-radius: 50%;
+        background: linear-gradient(180deg, #FFE2A0, #F5A623);
+        box-shadow: 0 0 16px rgba(245,166,35,.55);
+        opacity: .35; animation: dotPulse 1.35s ease-in-out infinite;
+      }
+      .loader-dots span:nth-child(2) { animation-delay: .2s; }
+      .loader-dots span:nth-child(3) { animation-delay: .4s; }
+      @keyframes dotPulse { 0%,80%,100%{opacity:.35;transform:translateY(0) scale(1)} 40%{opacity:1;transform:translateY(-3px) scale(1.25)} }
+      @keyframes logoBreathe { 0%,100%{transform:scale(1);box-shadow:0 24px 70px rgba(0,0,0,.58),0 0 44px rgba(245,166,35,.2)} 50%{transform:scale(1.025);box-shadow:0 28px 80px rgba(0,0,0,.62),0 0 60px rgba(245,166,35,.3)} }
+    </style>
+
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator && !window.location.hostname.includes('localhost') && !window.location.hostname.includes('.run.app')) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js', { scope: '/' })
+            .then(reg => { 
+               console.log('SW registered');
+            })
+            .catch(err => {
+               console.warn('SW registration failed:', err);
+            });
+        });
+      }
+      // Remove loader once React mounts
+      window.__removeSplash = function() {
+        console.log('__removeSplash called');
+        var l = document.getElementById('app-loader');
+        if (l) { 
+          l.classList.add('fade'); 
+          setTimeout(function(){ l.remove(); console.log('app-loader removed'); }, 400); 
+        } else {
+          console.log('app-loader not found or already removed');
+        }
+      };
+      // Failsafe: Remove loader after 6 seconds
+      setTimeout(function() {
+        if (document.getElementById('app-loader')) {
+          console.warn('Failsafe: Force removing splash loader after 6s timeout.');
+          window.__removeSplash();
+        }
+      }, 6000);
+    </script>
+
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2255709876687408" crossorigin="anonymous"></script>
+    <script type="module" crossorigin src="/assets/index-D9Gao5Pe.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/vendor-BzAsavC4.js">
+    <link rel="modulepreload" crossorigin href="/assets/framer-motion-D-Ota-mr.js">
+    <link rel="stylesheet" crossorigin href="/assets/vendor-BKr-Vi6Y.css">
+    <link rel="stylesheet" crossorigin href="/assets/index-DPCaV5Qx.css">
+  </head>
+  <body>
+    <!-- Splash loader — removed once app mounts -->
+    <div id="app-loader">
+      <div class="loader-icon">
+        <img src="/android-chrome-192x192.png" alt="STEA" />
+      </div>
+      <div class="loader-wordmark">STEA</div>
+      <div class="loader-slogan">LEARN. BUILD. EARN.</div>
+      <div class="loader-dots"><span></span><span></span><span></span></div>
+    </div>
+
+    <div id="root"></div>
+  </body>
+</html>

@@ -1,0 +1,43 @@
+{
+  "name": "STEA — Tanzania Digital Ecosystem",
+  "short_name": "STEA",
+  "description": "Education, AI tools, marketplace and business services for Tanzania",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "orientation": "portrait-primary",
+  "theme_color": "#F5A623",
+  "background_color": "#05060a",
+  "lang": "sw",
+  "dir": "ltr",
+  "categories": ["education", "shopping", "productivity"],
+  "icons": [
+    { "src": "/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshots/mobile-home.png",
+      "sizes": "390x844",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "STEA Homepage — Marketplace and Education"
+    },
+    {
+      "src": "/screenshots/desktop-home.png",
+      "sizes": "1280x800",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "STEA Desktop Dashboard"
+    }
+  ],
+  "shortcuts": [
+    { "name": "STEA Duka", "url": "/duka/phones", "description": "Shop Tanzania Marketplace", "icons": [{ "src": "/android-chrome-192x192.png", "sizes": "192x192" }] },
+    { "name": "Student Center", "url": "/student", "description": "NECTA Results and Exam Papers", "icons": [{ "src": "/android-chrome-192x192.png", "sizes": "192x192" }] },
+    { "name": "AI Tools", "url": "/tech-hub", "description": "AI Lab and Digital Tools", "icons": [{ "src": "/android-chrome-192x192.png", "sizes": "192x192" }] },
+    { "name": "Prompt Lab", "url": "/prompts", "description": "AI Prompts Collection", "icons": [{ "src": "/android-chrome-192x192.png", "sizes": "192x192" }] }
+  ],
+  "related_applications": [],
+  "prefer_related_applications": false
+}

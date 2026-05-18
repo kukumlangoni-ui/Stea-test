@@ -1,0 +1,10 @@
+function ProductCard({ p }) {
+  const { docs, loading } = useCollection("products", "createdAt");
+  const products = docs;
+          copy="Curated affiliate products na verified deals kwa buyers wa Tanzania."
+            : products.map((p, i) => <ProductCard key={p.id || i} p={p} />)}
+  const { docs: products } = useCollection("products", "createdAt");
+        {/* Duka Products */}
+              hi="Duka Products"
+              View All Products →
+            {products.slice(0, 4).map((p) => (
